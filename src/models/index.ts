@@ -1,6 +1,14 @@
-const { Sequelize } = require("sequelize");
 
-const sequelize: any = new Sequelize(process.env.DATABASE_URL) 
+import User from "./user";
+
+const { Sequelize, DataTypes, Model } = require('sequelize');
+
+const sequelize: any = new Sequelize(process.env.DATABASE_URL)
+
+
+const db = {
+    User: User(sequelize, DataTypes)
+}
 
 export async function testConn() {
     try {
@@ -11,5 +19,4 @@ export async function testConn() {
       }
 }
   
-  
-
+export default db;

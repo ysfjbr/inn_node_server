@@ -5,7 +5,7 @@ import http from 'http';
 
 import typeDefs from './schema'
 import resolvers from './resolvers'
-import { testConn } from './models';
+import models from './models';
 
 async function startApolloServer(typeDefs: any, resolvers: any) {
     const app = express();
@@ -14,12 +14,13 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
       typeDefs,
       resolvers,
       csrfPrevention: true,
+      context: models,
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     });
     await server.start();
     server.applyMiddleware({ app });
     await new Promise<void>(resolve => httpServer.listen({ port: 4000 }, resolve));
-    testConn();
+
     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 }
 
