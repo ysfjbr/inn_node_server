@@ -1,0 +1,24 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: yarn dev
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://postgres:example@postgres/innserver
+  postgres:
+    image: postgres:14.2-alpine
+    restart: always
+    user: postgres
+    volumes:
+      - .dbdata:/var/lib/mysql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: innserver
+      POSTGRES_PASSWORD: example
