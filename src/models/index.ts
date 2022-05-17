@@ -1,13 +1,23 @@
 
-import User from "./user";
+import UserModel from "./user";
 
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
-const sequelize: any = new Sequelize(process.env.DATABASE_URL)
+export const sequelize: any = new Sequelize(process.env.DATABASE_URL)
+
+class User extends Model {}
+
+User.init(UserModel, {
+  sequelize,
+  modelName: 'User' 
+});
+
+// the defined model is the class itself
+console.log(User === sequelize.models.User); // true
 
 
 const db = {
-    User: User(sequelize, DataTypes)
+    User
 }
 
 export async function testConn() {
@@ -18,5 +28,5 @@ export async function testConn() {
         console.error('Unable to connect to the database:', error);
       }
 }
-  
+
 export default db;

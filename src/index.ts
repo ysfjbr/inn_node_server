@@ -5,7 +5,7 @@ import http from 'http';
 
 import typeDefs from './schema'
 import resolvers from './resolvers'
-import models from './models';
+import models, { sequelize } from './models';
 
 async function startApolloServer(typeDefs: any, resolvers: any) {
     const app = express();
@@ -14,7 +14,7 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
       typeDefs,
       resolvers,
       csrfPrevention: true,
-      context: models,
+      context: {models},
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     });
     await server.start();
@@ -24,4 +24,4 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 }
 
-startApolloServer(typeDefs, resolvers)
+sequelize.sync().then(() => startApolloServer(typeDefs, resolvers) )

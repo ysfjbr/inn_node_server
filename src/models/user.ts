@@ -1,8 +1,8 @@
-export default (sequelize:any , DataType:any)=> {
-    const User = sequelize.define('User', {
-        username: DataType.STRING,
-        password: DataType.STRING,
-    })
+const { DataTypes } = require('sequelize');
 
-    return User;
+const User =  {
+    username: DataTypes.STRING,
+    password: DataTypes.STRING,
 }
+
+export default User
