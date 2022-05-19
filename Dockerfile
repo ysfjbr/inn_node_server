@@ -1,5 +1,5 @@
-FROM node:14.19.1-alpine
+FROM node:16
 WORKDIR /usr/app
-COPY package.json .
+COPY package.json /usr/app/
 RUN yarn
 COPY . .

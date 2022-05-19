@@ -5,7 +5,9 @@ import http from 'http';
 
 import typeDefs from './schema'
 import resolvers from './resolvers'
-import models, { sequelize } from './models';
+import models, { conn } from './models';
+
+import { createRefreshTokenPOST } from "./auth/auth";
 
 async function startApolloServer(typeDefs: any, resolvers: any) {
     const app = express();
@@ -17,6 +19,11 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
       context: {models},
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     });
+
+    app.get("/", (_req,res) => res.send("Hi"))
+        
+    app.post("/refresh_token", createRefreshTokenPOST)
+
     await server.start();
     server.applyMiddleware({ app });
     await new Promise<void>(resolve => httpServer.listen({ port: 4000 }, resolve));
@@ -24,4 +31,4 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 }
 
-sequelize.sync().then(() => startApolloServer(typeDefs, resolvers) )
+conn.sync().then(() => startApolloServer(typeDefs, resolvers) )

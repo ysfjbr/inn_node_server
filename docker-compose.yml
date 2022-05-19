@@ -2,7 +2,7 @@ version: '2'
 services:
   web:
     build: .
-    command: yarn dev
+    command: npm run start
     volumes:
       - .:/usr/app/
       - /usr/app/node_modules
@@ -12,12 +12,12 @@ services:
       - postgres
     environment:
       DATABASE_URL: postgres://postgres:example@postgres/innserver
+      APP_CLIENT_URL: vkjvhjscvkjsd
+      SECRET_REF_JWT: ksdhf
   postgres:
     image: postgres:14.2-alpine
     restart: always
     user: postgres
-    volumes:
-      - .dbdata:/var/lib/mysql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: innserver
