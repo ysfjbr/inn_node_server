@@ -1,4 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
+import models from "."
 
 export const BookModel =  {
     title: DataTypes.STRING,
@@ -7,7 +8,11 @@ export const BookModel =  {
 }
 
 const getBook = (conn: any) => {
-  class Book extends Model {}
+  class Book extends Model {
+    static associate() {
+      Book.hasMany(models.Page, { foreignKey: "bookId" });
+    }
+  }
 
   Book.init(BookModel, {
       sequelize: conn,

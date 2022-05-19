@@ -1,3 +1,4 @@
+import BooksController from "../controllers/BooksController";
 
 export default {
     Query: {
@@ -8,7 +9,7 @@ export default {
     },
 
     Mutation: {
-        createBook: (parent: any, args:any, {models}:any) => models.Book.create(args),
+        createBook: (parent: any, args:any, {models}:any) => BooksController.createBook(args),
         updateBook: (parent: any, args:any, {models}:any) => models.Book.update(args),
         deleteBook: (parent: any, args:any, {models}:any) => models.Book.destroy({where: args})
     }
