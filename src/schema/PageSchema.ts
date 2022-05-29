@@ -11,7 +11,7 @@ type Page{
 }
 
 type File {
-    filename: String!
+    serverFile: String!
     mimetype: String!
     encoding: String!
   }
@@ -25,6 +25,6 @@ type Mutation {
     createPage(content: String!, bookId: Int): Page
     updatePage(content: String!): Page
     deletePage(id: String!): Int!
-    uploadFile(file: Upload!): String!
+    uploadFile(file: Upload!): File!
 }
 `;

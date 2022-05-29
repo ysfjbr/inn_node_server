@@ -9,6 +9,7 @@ import models, { sequelize } from './models';
 
 import { createRefreshTokenPOST } from "./auth/auth";
 import bodyParser from 'body-parser';
+var cors = require('cors')
 
 const graphqlUploadExpress = require('graphql-upload/graphqlUploadExpress.js');
 
@@ -18,10 +19,14 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
     const server = new ApolloServer({
       typeDefs,
       resolvers,
-      csrfPrevention: true,
+      csrfPrevention: false,
       context: {models},
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     });
+
+    app.use(cors())
+
+    app.use(bodyParser.json())
 
     app.get("/", (_req,res) => res.send("Hi"))
         
@@ -29,7 +34,7 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
 
     await server.start();
 
-    app.use(graphqlUploadExpress({uploadDir : "./upload"}), bodyParser);
+    app.use(graphqlUploadExpress());
 
     server.applyMiddleware({ app });
     await new Promise<void>(resolve => httpServer.listen({ port: 4000 }, resolve));
