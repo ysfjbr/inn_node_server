@@ -1,25 +1,22 @@
-import { DataTypes, Model } from 'sequelize';
-import models from "."
-
-export const BookModel =  {
-    title: DataTypes.STRING,
-    description: DataTypes.STRING,
-    pages: DataTypes.BIGINT,
-}
-
-const getBook = (conn: any) => {
-  class Book extends Model {
-    static associate() {
-      Book.hasMany(models.Page, { foreignKey: "bookId" });
+import  {Model} from 'sequelize';
+module.exports = (sequelize:any, DataTypes:any) => {
+  class book extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models:any) {
+      // book.hasMany(models.page, { foreignKey: "bookId" });
     }
   }
-
-  Book.init(BookModel, {
-      sequelize: conn,
-      modelName: 'Book' 
+  book.init({
+    title: DataTypes.STRING,
+    description: DataTypes.STRING,
+    pages: DataTypes.NUMBER
+  }, {
+    sequelize,
+    modelName: 'book',
   });
-
-  return Book
-}
-
-export default getBook
+  return book;
+};

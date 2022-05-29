@@ -1,5 +1,7 @@
 
 export default `
+scalar Upload
+
 type Page{
     id: Int
     content: String!
@@ -7,6 +9,12 @@ type Page{
     createdAt: String!
     updatedAt: String!
 }
+
+type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+  }
 
 type Query {
     allPages: [Page!]!
@@ -17,5 +25,6 @@ type Mutation {
     createPage(content: String!, bookId: Int): Page
     updatePage(content: String!): Page
     deletePage(id: String!): Int!
+    uploadFile(file: Upload!): String!
 }
 `;

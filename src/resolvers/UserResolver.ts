@@ -1,23 +1,25 @@
+import { Op } from 'sequelize';
 import { createRefreshToken } from "../auth/auth";
+// const sequelize = require('sequelize');
 
 export default {
     Query: {
-        allUsers: (parent: any, args:any, {models}:any) => models.User.findAll(),
-        getUser: (parent: any, {username}:any, {models}:any) => models.User.findOne({where: {
+        allUsers: (parent: any, args:any, {models}:any) => models.user.findAll(),
+        getUser: (parent: any, {username}:any, {models}:any) => models.user.findOne({where: {
             username
         }}),
     },
 
     Mutation: {
         login: (parent: any, {username, password}:any, {models}:any) => login(models, username, password),
-        createUser: (parent: any, args:any, {models}:any) => models.User.create(args),
-        updateUser: (parent: any, args:any, {models}:any) => models.User.update(args),
-        deleteUser: (parent: any, args:any, {models}:any) => models.User.destroy({where: args})
+        createUser: (parent: any, args:any, {models}:any) => models.user.create(args),
+        updateUser: (parent: any, args:any, {models}:any) => models.user.update(args),
+        deleteUser: (parent: any, args:any, {models}:any) => models.user.destroy({where: args})
     }
 }
 
 const login = (models:any, username:string, password :string) => {
-    const user = models.User.findOne({where: {username , password }})
+    const user = models.user.findOne({where: {username: {[Op.like]: '%' + username.toLowerCase() + '%'}  , password }})
 
         if(!user)
             throw new Error("Invalid login! no user");
@@ -32,9 +34,7 @@ const login = (models:any, username:string, password :string) => {
         //         httpOnly:true
         //     }
         // )
-
         
-
         return {
             token : createRefreshToken(user),
             user

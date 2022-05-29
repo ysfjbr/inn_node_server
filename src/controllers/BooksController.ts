@@ -2,19 +2,27 @@ import models from "../models"
 
 const BooksController = {
 
-    createBook : async ({content, bookId}: any) => {
+    getBook: async (id: Number) => {
+        let book:any = await models.book.findOne({where: {
+            id
+        }})
+        book['allPages'] = await models.page.findAll({where: { bookId: id}})
 
+        return book
+    },
+
+    createBook : async (args: any) => {
+        return models.book.create(args)    
     },
     
     updatePages : async (bookId: Number) => {
-        let pages =  await models.Page.findAll({where: { bookId }})
+        let pages =  await models.page.findAll({where: { bookId }})
     
-        models.Book.update(
+        models.book.update(
             { pages: pages.length },
             { where: { id: bookId } }
         )
     }
-
 }
 
 export default BooksController

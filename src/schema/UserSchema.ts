@@ -3,6 +3,7 @@ export default `
 type User{
     id: String!
     username: String!
+    fullname:String!
     email: String!
     tokenVersion: String!
     createdAt: String!
@@ -21,7 +22,7 @@ type Query {
 
 type Mutation {
     login(username: String!, password: String!): LoginResponse
-    createUser(username: String!, password: String!, email: String!): User
+    createUser(username: String!, password: String!, email: String!, fullname:String!): User
     updateUser(username: String!, password: String!): [Int!]!
     deleteUser(username: String!): Int!
 }

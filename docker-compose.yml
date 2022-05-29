@@ -2,6 +2,7 @@ version: '2'
 services:
   web:
     build: .
+    image: node:16
     command: npm run start
     volumes:
       - .:/usr/app/
@@ -11,7 +12,7 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: postgres://postgres:example@postgres/innserver
+      DATABASE_URL: postgres://postgres:example@postgres/innser
       APP_CLIENT_URL: vkjvhjscvkjsd
       SECRET_REF_JWT: ksdhf
   postgres:
@@ -20,5 +21,5 @@ services:
     user: postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_DB: innserver
+      POSTGRES_DB: innser
       POSTGRES_PASSWORD: example

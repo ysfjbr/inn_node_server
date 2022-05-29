@@ -5,9 +5,12 @@ import http from 'http';
 
 import typeDefs from './schema'
 import resolvers from './resolvers'
-import models, { conn } from './models';
+import models, { sequelize } from './models';
 
 import { createRefreshTokenPOST } from "./auth/auth";
+import bodyParser from 'body-parser';
+
+const graphqlUploadExpress = require('graphql-upload/graphqlUploadExpress.js');
 
 async function startApolloServer(typeDefs: any, resolvers: any) {
     const app = express();
@@ -25,10 +28,13 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
     app.post("/refresh_token", createRefreshTokenPOST)
 
     await server.start();
+
+    app.use(graphqlUploadExpress({uploadDir : "./upload"}), bodyParser);
+
     server.applyMiddleware({ app });
     await new Promise<void>(resolve => httpServer.listen({ port: 4000 }, resolve));
 
     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 }
 
-conn.sync().then(() => startApolloServer(typeDefs, resolvers) )
+sequelize.sync().then(() => startApolloServer(typeDefs, resolvers) )

@@ -1,7 +1,6 @@
 import PagesController from "../controllers/PagesController";
 
-
-export default {
+export default {    
     Query: {
         allPages: (parent: any, args:any, {models}:any) => models.Page.findAll(),
         getPage: (parent: any, {title}:any, {models}:any) => models.Page.findOne({where: {
@@ -12,6 +11,7 @@ export default {
     Mutation: {
         createPage: (parent: any, args:any, {models}:any) => PagesController.createPage(args),
         updatePage: (parent: any, args:any, {models}:any) => models.Page.update(args),
-        deletePage: (parent: any, args:any, {models}:any) => models.Page.destroy({where: args})
+        deletePage: (parent: any, args:any, {models}:any) => models.Page.destroy({where: args}),
+        uploadFile: (parent: any, args:any, {models}:any) => PagesController.uploadFile(parent, args),
     }
 }

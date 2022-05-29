@@ -1,24 +1,22 @@
-import { DataTypes, Model } from 'sequelize';
-import models from "."
+import  {Model} from 'sequelize';
 
-export const PageModel =  {
-    content: DataTypes.STRING,
-    bookId: DataTypes.INTEGER
-}
-
-const getPage = (conn: any) => {
-  class Page extends Model {
-    static associate() {
-      Page.belongsTo(models.Book, { foreignKey: "bookId" });
+module.exports = (sequelize:any, DataTypes:any) => {
+  class page extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models:any) {
+      page.belongsTo(models.book, { foreignKey: "bookId" });
     }
   }
-
-  Page.init(PageModel, {
-      sequelize: conn,
-      modelName: 'Page' 
+  page.init({
+    content: DataTypes.STRING,
+    bookId: DataTypes.INTEGER
+  }, {
+    sequelize,
+    modelName: 'page',
   });
-
-  return Page
-}
-
-export default getPage
+  return page;
+};

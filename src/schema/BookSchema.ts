@@ -5,13 +5,14 @@ type Book{
     title: String!
     description: String!
     pages: String!
+    allPages: [Page!]!
     createdAt: String!
     updatedAt: String!
 }
 
 type Query {
     allBooks: [Book!]!
-    getBook(title: String!): Book!
+    getBook(id: Int!): Book!
 }
 
 type Mutation {
