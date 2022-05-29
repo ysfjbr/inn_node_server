@@ -9,6 +9,7 @@ import models, { sequelize } from './models';
 
 import { createRefreshTokenPOST } from "./auth/auth";
 import bodyParser from 'body-parser';
+import mediaRoute from "./routes/media"
 var cors = require('cors')
 
 const graphqlUploadExpress = require('graphql-upload/graphqlUploadExpress.js');
@@ -29,6 +30,7 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
     app.use(bodyParser.json())
 
     app.get("/", (_req,res) => res.send("Hi"))
+    app.use("/media", mediaRoute)
         
     app.post("/refresh_token", createRefreshTokenPOST)
 

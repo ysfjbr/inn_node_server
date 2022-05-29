@@ -29,7 +29,8 @@ function getMedia(req: any, res: Response) {
     const base = parseInt(req.query.base) || null;
 
     const appDir: string = path.resolve(__dirname, '../..');
-    const imageURL: string = appDir + '/media' + req.path;
+    const imageURL: string = appDir + '/src/upload' + req.path;
+
     console.log(imageURL);
     
     //res.send(imageURL);

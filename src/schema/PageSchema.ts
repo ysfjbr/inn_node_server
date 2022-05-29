@@ -10,11 +10,9 @@ type Page{
     updatedAt: String!
 }
 
-type File {
-    serverFile: String!
-    mimetype: String!
-    encoding: String!
-  }
+type UploadedPage {
+    status: String!
+}
 
 type Query {
     allPages: [Page!]!
@@ -25,6 +23,6 @@ type Mutation {
     createPage(content: String!, bookId: Int): Page
     updatePage(content: String!): Page
     deletePage(id: String!): Int!
-    uploadFile(file: Upload!): File!
+    uploadFile(file: Upload!, bookId: Int): UploadedPage!
 }
 `;
