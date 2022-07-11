@@ -3,8 +3,18 @@ export default `
 type Book{
     id: Int
     title: String!
+    pages: String!
+    image: String
+    createdAt: String!
+    updatedAt: String!
+}
+
+type BookDetails{
+    id: Int
+    title: String!
     description: String!
     pages: String!
+    image: String!
     allPages: [Page!]!
     createdAt: String!
     updatedAt: String!
@@ -12,7 +22,7 @@ type Book{
 
 type Query {
     allBooks: [Book!]!
-    getBook(id: Int!): Book!
+    getBook(id: Int!): BookDetails!
 }
 
 type Mutation {

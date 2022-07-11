@@ -13,7 +13,8 @@ module.exports = (sequelize:any, DataTypes:any) => {
   book.init({
     title: DataTypes.STRING,
     description: DataTypes.STRING,
-    pages: DataTypes.NUMBER
+    pages: DataTypes.NUMBER,
+    image: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'book',

@@ -2,7 +2,7 @@ import BooksController from "../controllers/BooksController";
 
 export default {
     Query: {
-        allBooks: (parent: any, args:any, {models}:any) => models.book.findAll(),
+        allBooks: (parent: any, args:any, {models}:any) => BooksController.getAllBooks(),
         getBook: (parent: any, {id}:any, {models}:any) => BooksController.getBook(id),
     },
 
