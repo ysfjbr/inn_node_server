@@ -1,5 +1,5 @@
 import models from "../models";
-import { UserModel } from "../models/user";
+import { UserModel } from "../models/User";
 import { sendRefreshToken } from "./sendRefreshToken";
 
 var jwt = require('jsonwebtoken');

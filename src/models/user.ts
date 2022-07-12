@@ -10,7 +10,7 @@ export const UserModel = {
 }
 
 module.exports = (sequelize:any, DataTypes:any) => {
-  class user extends Model {
+  class User extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -20,9 +20,20 @@ module.exports = (sequelize:any, DataTypes:any) => {
       // define association here
     }
   }
-  user.init( UserModel , {
+  User.init( UserModel , {
     sequelize,
     modelName: 'user',
   });
-  return user;
+  return User;
 };
+
+export interface IUser {
+  id: number;
+  username: string;
+  password: string;
+  fullname: string;
+  email: string;
+  tokenVersion: string;
+  createdAt: Date;
+  updatedAt: Date;
+}

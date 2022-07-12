@@ -3,7 +3,7 @@ export default `
 type Book{
     id: Int
     title: String!
-    pages: String!
+    pages: Int!
     image: String
     createdAt: String!
     updatedAt: String!
@@ -13,8 +13,8 @@ type BookDetails{
     id: Int
     title: String!
     description: String!
-    pages: String!
-    image: String!
+    pages: Int!
+    image: String
     allPages: [Page!]!
     createdAt: String!
     updatedAt: String!

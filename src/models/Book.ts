@@ -1,6 +1,7 @@
 import  {Model} from 'sequelize';
+import { IUser } from './User';
 module.exports = (sequelize:any, DataTypes:any) => {
-  class book extends Model {
+  class Book extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -10,7 +11,7 @@ module.exports = (sequelize:any, DataTypes:any) => {
       // book.hasMany(models.page, { foreignKey: "bookId" });
     }
   }
-  book.init({
+  Book.init({
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     pages: DataTypes.NUMBER,
@@ -19,5 +20,16 @@ module.exports = (sequelize:any, DataTypes:any) => {
     sequelize,
     modelName: 'book',
   });
-  return book;
+  return Book;
 };
+
+export interface IBook {
+  id: number;
+  title: string;
+  description: string;
+  pages: number;
+  image: string;
+  creator: IUser;
+  createdAt: Date;
+  updatedAt: Date;
+}

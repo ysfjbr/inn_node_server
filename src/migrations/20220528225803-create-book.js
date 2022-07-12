@@ -17,6 +17,27 @@ module.exports = {
       pages: {
         type: Sequelize.INTEGER
       },
+      image: {
+        type: Sequelize.STRING
+      },
+      userId: {
+        type: Sequelize.INTEGER
+      },
+      schoolId: {
+        type: Sequelize.INTEGER
+      },
+      subjectId: {
+        type: Sequelize.INTEGER
+      },
+      classId: {
+        type: Sequelize.INTEGER
+      },
+      countryId: {
+        type: Sequelize.INTEGER
+      },
+      languageId: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

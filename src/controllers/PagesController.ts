@@ -1,14 +1,15 @@
-import BooksController from "./BooksController"
+// import BooksController from "./BooksController"
 import models from "../models"
 import Stream, { finished } from "stream"
 import { join, parse } from "path"
+import BookRepository from "../repositories/BookRepository"
 
 
 const PagesController = {
 
     createPage: async ({ content, bookId }: any) => {
         const page = models.page.create({ content, bookId })
-        BooksController.updatePages(bookId)
+        BookRepository.updatePages(bookId)
         return page
     },
 
