@@ -14,8 +14,14 @@ module.exports = (sequelize:any, DataTypes:any) => {
   Book.init({
     title: DataTypes.STRING,
     description: DataTypes.STRING,
-    pages: DataTypes.NUMBER,
-    image: DataTypes.STRING
+    pages: DataTypes.INTEGER,
+    image: DataTypes.STRING,
+    userId:DataTypes.INTEGER,
+    schoolId: DataTypes.INTEGER,
+    subjectId: DataTypes.INTEGER,
+    classId: DataTypes.INTEGER,
+    countryId: DataTypes.INTEGER,
+    languageId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'book',
@@ -29,7 +35,12 @@ export interface IBook {
   description: string;
   pages: number;
   image: string;
-  creator: IUser;
+  userId:number,
+  schoolId: number,
+  subjectId: number,
+  classId: number,
+  countryId: number,
+  languageId: number,
   createdAt: Date;
   updatedAt: Date;
 }

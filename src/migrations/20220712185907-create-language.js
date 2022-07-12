@@ -1,14 +1,11 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Schools', {
+    await queryInterface.createTable('Languages', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      userId: {
         type: Sequelize.INTEGER
       },
       code: {
@@ -16,12 +13,6 @@ module.exports = {
       },
       label: {
         type: Sequelize.STRING
-      },
-      countryId: {
-        type: Sequelize.INTEGER
-      },
-      schoolTypeId: {
-        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +25,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Schools');
+    await queryInterface.dropTable('Languages');
   }
 };

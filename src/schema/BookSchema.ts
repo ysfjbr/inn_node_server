@@ -1,20 +1,18 @@
 
 export default `
-type Book{
-    id: Int
-    title: String!
-    pages: Int!
-    image: String
-    createdAt: String!
-    updatedAt: String!
-}
+scalar Upload
 
-type BookDetails{
+type Book{
     id: Int
     title: String!
     description: String!
     pages: Int!
     image: String
+    creator: User!
+    school: School
+    subject: Subject
+    level: Level,
+    language: Language   
     allPages: [Page!]!
     createdAt: String!
     updatedAt: String!
@@ -22,11 +20,11 @@ type BookDetails{
 
 type Query {
     allBooks: [Book!]!
-    getBook(id: Int!): BookDetails!
+    getBook(id: Int!): Book!
 }
 
 type Mutation {
-    createBook(title: String!, description: String!, pages: Int!): Book
+    createBook(title: String!, description: String!, pages: Int!, image: Upload): Book
     updateBook(title: String!, description: String!, pages: Int!): Book
     deleteBook(title: String!): Int!
 }
