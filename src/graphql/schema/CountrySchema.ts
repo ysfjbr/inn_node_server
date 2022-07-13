@@ -10,7 +10,7 @@ type Country{
 }
 
 type Query {
-    allCountries: [Country!]
+    allCountries: [Country!]!
     getCountry(code: String!): Country!
 }
 `;

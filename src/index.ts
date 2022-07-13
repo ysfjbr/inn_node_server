@@ -3,8 +3,8 @@ import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import express from 'express';
 import http from 'http';
 
-import typeDefs from './schema'
-import resolvers from './resolvers'
+import typeDefs from './graphql/schema'
+import resolvers from './graphql/resolvers'
 import models, { sequelize } from './models';
 
 import { createRefreshTokenPOST } from "./auth/auth";

@@ -1,4 +1,6 @@
 import  {Model} from 'sequelize';
+import { IPage } from './Page';
+import { ISubject } from './Subject';
 import { IUser } from './User';
 module.exports = (sequelize:any, DataTypes:any) => {
   class Book extends Model {
@@ -30,17 +32,49 @@ module.exports = (sequelize:any, DataTypes:any) => {
 };
 
 export interface IBook {
-  id: number;
+  id?: number;
   title: string;
   description: string;
   pages: number;
-  image: string;
+  image?: string;
   userId:number,
   schoolId: number,
   subjectId: number,
   classId: number,
-  countryId: number,
   languageId: number,
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
+
+export interface IBookRespose {
+  id?: number;
+  title: string;
+  description: string;
+  pages: number;
+  image?: string;
+  userId:number,
+  schoolId: number,
+  subjectId: number,
+  classId: number,
+  languageId: number,
+  allPages?: IPage[],
+  creator?:IUser,
+  school?: any,
+  subject?: ISubject,
+  level?: any,
+  language?: any,
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface IBookRequest {
+  title: string;
+  description: string;
+  image: any;
+  school: string,
+  subject: string,
+  level: string,
+  countryCode: string,
+  languageCode: string,
+}
+

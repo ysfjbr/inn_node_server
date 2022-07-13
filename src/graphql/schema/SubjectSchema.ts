@@ -10,7 +10,7 @@ type Subject{
 }
 
 type Query {
-    allSubjects: [Subject!]
+    getAllSubjects: [Subject!]
     getSubject(code: String!): Subject!
 }
 `;

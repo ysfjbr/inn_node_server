@@ -1,16 +1,11 @@
 import models from "../models"
-import { IBook } from "../models/Book"
+import { IBook, IBookRequest, IBookRespose } from "../models/Book"
+import SubjectRepository from "./SubjectRepository"
 
 const BookRepository = {
 
     getAllBooks: async () => {
-        let books: IBook[] = (await models.book.findAll()).map(async (book: IBook) => {
-            if (!book['image']) {
-                let pages = await models.page.findAll({ where: { bookId: book.id }})
-                book['image'] = pages.length > 0 ? pages[0].content : null
-            }
-            return book
-        })
+        let books: IBookRespose[] = (await models.book.findAll()).map(mapDataBookResponse)
         return books
     },
 
@@ -21,15 +16,30 @@ const BookRepository = {
             }
         })
         if(!book) throw new Error("Book Not Found!");
-        
-        book['allPages'] = await models.page.findAll({ where: { bookId: id } })
 
-        return book
+        return mapDataBookResponse(book)
+        
     },
 
-    createBook: async (args: IBook) => {
-        args.pages = 0;
-        return models.book.create(args)
+    createBook: async (req: IBookRequest) => {
+
+        let classId = 0
+        let languageId = 0
+        let userId = 1
+        let subjectId = (await SubjectRepository.findOrCreateSubject(req.subject)).id
+        let schoolId = 0
+
+        let newBook: IBook = {
+            title: req.title, 
+            description: req.description,
+            classId,
+            languageId,
+            pages: 0,
+            userId,
+            subjectId,
+            schoolId
+        }
+        return models.book.create(newBook)
     },
 
     updatePages: async (bookId: Number) => {
@@ -40,6 +50,27 @@ const BookRepository = {
             { where: { id: bookId } }
         )
     }
+}
+
+async function mapDataBookResponse(book: IBook) : Promise<IBookRespose> {
+    let mappedBook : IBookRespose = book
+    
+    if (!mappedBook.image) {
+        let pages = await models.page.findAll({ where: { bookId: book.id }})
+        mappedBook.image = pages.length > 0 ? pages[0].content : null
+    }
+
+    mappedBook.subject = await models.Subject.findOne({where: {
+        id: book.subjectId
+    }})
+
+    mappedBook.school = await models.School.findOne({where: {
+        id: book.schoolId
+    }})
+    
+    mappedBook.allPages = await models.page.findAll({ where: { bookId: book.id } })
+    
+    return mappedBook
 }
 
 export default BookRepository

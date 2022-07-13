@@ -20,3 +20,11 @@ module.exports = (sequelize:any, DataTypes:any) => {
   });
   return Subject;
 };
+
+export interface ISubject {
+  id: number;
+  code: string;
+  label: string;
+  createdAt: Date;
+  updatedAt: Date;
+}

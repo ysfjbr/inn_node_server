@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import { createRefreshToken } from "../auth/auth";
+import { createRefreshToken } from "../../auth/auth";
 // const sequelize = require('sequelize');
 
 export default {

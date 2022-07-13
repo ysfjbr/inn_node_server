@@ -1,9 +1,10 @@
+import { IBookRequest } from "../../models/Book"
 import BookRepository from "../../repositories/BookRepository"
 import PubBooksController from "../public/PubBooksController"
 
 const AdminBooksController = {
     ...PubBooksController,
-    createBook: (data: any) => {
+    createBook: (data: IBookRequest) => {
         return BookRepository.createBook(data)
     },
 

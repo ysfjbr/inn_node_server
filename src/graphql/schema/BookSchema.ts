@@ -24,7 +24,7 @@ type Query {
 }
 
 type Mutation {
-    createBook(title: String!, description: String!, pages: Int!, image: Upload): Book
+    createBook(title: String!, description: String!, school: String, subject:String, level:String,language:String,image: Upload): Book
     updateBook(title: String!, description: String!, pages: Int!): Book
     deleteBook(title: String!): Int!
 }
