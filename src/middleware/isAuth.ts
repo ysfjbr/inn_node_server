@@ -17,3 +17,20 @@ export const isAuth = ({context}:any , next:any)=> {
     }
     return next()
 }
+
+export const getAuthUserId = (token: string)=> {
+
+    if(!token)  
+        return null
+
+    try {
+        const payload = jwt.verify(token, process.env.SECRET_ACC_JWT)
+        return payload?.userId
+        
+    } catch (error) {
+        console.log("error", error, process.env.SECRET_ACC_JWT);
+        // throw new Error('Token is invalid')
+    }
+
+    return null
+}

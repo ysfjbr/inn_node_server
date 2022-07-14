@@ -15,6 +15,7 @@ services:
       DATABASE_URL: postgres://postgres:example@postgres/innser
       APP_CLIENT_URL: vkjvhjscvkjsd
       SECRET_REF_JWT: ksdhf
+      SECRET_ACC_JWT: kjsdfhksdjf343
   postgres:
     image: postgres:14.2-alpine
     restart: always

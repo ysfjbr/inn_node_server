@@ -1,16 +1,16 @@
 import models from "../models";
-import { UserModel } from "../models/User";
+import { IUser, UserModel } from "../models/User";
 import { sendRefreshToken } from "./sendRefreshToken";
 
 var jwt = require('jsonwebtoken');
 // import { User } from "../entity/User";
 // import { sendRefreshToken } from "./sendRefreshToken";
 
-export function createAccessToken(user: typeof UserModel) {
-    return jwt.sign({ userId: user.username }, process.env.SECRET_ACC_JWT, { expiresIn: "15m" })
+export function createAccessToken(user: IUser) {
+    return jwt.sign({ userId: user.id }, process.env.SECRET_ACC_JWT, { expiresIn: "10m" })
 }
 
-export function createRefreshToken(user: typeof UserModel) {
+export function createRefreshToken(user: IUser) {
     return jwt.sign({ userId: user.username, tokenVersion: user.tokenVersion },
         process.env.SECRET_REF_JWT, { expiresIn: "7d" })
 }

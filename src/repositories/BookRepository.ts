@@ -18,14 +18,13 @@ const BookRepository = {
         if(!book) throw new Error("Book Not Found!");
 
         return mapDataBookResponse(book)
-        
     },
 
-    createBook: async (req: IBookRequest) => {
+    createBook: async (req: IBookRequest, context: any) => {
 
         let classId = 0
         let languageId = 0
-        let userId = 1
+        let userId = context.authUserId
         let subjectId = (await SubjectRepository.findOrCreateSubject(req.subject)).id
         let schoolId = 0
 
@@ -39,7 +38,10 @@ const BookRepository = {
             subjectId,
             schoolId
         }
-        return models.book.create(newBook)
+
+        let book = await models.book.create(newBook)
+        
+        return mapDataBookResponse(book.dataValues)
     },
 
     updatePages: async (bookId: Number) => {
@@ -60,13 +62,11 @@ async function mapDataBookResponse(book: IBook) : Promise<IBookRespose> {
         mappedBook.image = pages.length > 0 ? pages[0].content : null
     }
 
-    mappedBook.subject = await models.Subject.findOne({where: {
-        id: book.subjectId
-    }})
+    mappedBook.subject = await models.Subject.findOne({where: { id: book.subjectId }})
 
-    mappedBook.school = await models.School.findOne({where: {
-        id: book.schoolId
-    }})
+    mappedBook.school = await models.School.findOne({where: { id: book.schoolId }})
+
+    mappedBook.creator = await models.user.findOne({where: { id: book.userId }})
     
     mappedBook.allPages = await models.page.findAll({ where: { bookId: book.id } })
     

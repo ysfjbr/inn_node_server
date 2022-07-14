@@ -10,6 +10,7 @@ import models, { sequelize } from './models';
 import { createRefreshTokenPOST } from "./auth/auth";
 import bodyParser from 'body-parser';
 import mediaRoute from "./routes/media"
+import { getAuthUserId } from './middleware/isAuth';
 var cors = require('cors')
 
 const graphqlUploadExpress = require('graphql-upload/graphqlUploadExpress.js');
@@ -21,8 +22,13 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
       typeDefs,
       resolvers,
       csrfPrevention: false,
-      context: {models},
+      context: ({req}) => {
+        let token = req.headers.authorization || ""
+        let authUserId = getAuthUserId(token)
+       return {models, authUserId}
+      },
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+      
     });
 
     app.use(cors())

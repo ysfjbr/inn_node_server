@@ -18,6 +18,7 @@ type LoginResponse{
 type Query {
     allUsers: [User!]!
     getUser(username: String!): User!
+    currentUser: LoginResponse
 }
 
 type Mutation {

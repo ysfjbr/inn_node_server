@@ -1,6 +1,6 @@
 // import BooksController from "../controllers/BooksController";
 
-import AdminBooksController from "../../controllers/admin/PubBooksController";
+import MyBooksController from "../../controllers/me/MyBooksController";
 import PubBooksController from "../../controllers/public/PubBooksController";
 import { IBook, IBookRequest } from "../../models/Book";
 
@@ -11,7 +11,7 @@ export default {
     },
 
     Mutation: {
-        createBook: (parent: any, args:IBookRequest, {models}:any) => AdminBooksController.createBook(args),
+        createBook: (parent: any, args:IBookRequest, context:any) => MyBooksController.createBook(args, context),
         updateBook: (parent: any, args:any, {models}:any) => models.book.update(args),
         deleteBook: (parent: any, args:any, {models}:any) => models.book.destroy({where: args})
     }
