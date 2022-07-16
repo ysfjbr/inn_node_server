@@ -13,6 +13,7 @@ type User{
 type LoginResponse{
     user: User!
     token: String!
+    myBooks: [Book!]!
 }
 
 type Query {

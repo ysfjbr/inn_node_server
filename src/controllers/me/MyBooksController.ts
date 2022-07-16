@@ -6,6 +6,10 @@ const MyBooksController = {
 
     ...PubBooksController,
 
+    myBooks: (userId: number) => {
+        return BookRepository.getUserBooks(userId)
+    },
+
     createBook: async (data: any, context: any) => {
         if(MyBookPermissions.create(context))
         return BookRepository.createBook(data, context)

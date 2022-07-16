@@ -9,6 +9,13 @@ const BookRepository = {
         return books
     },
 
+    getUserBooks: async (userId: number) => {
+        let books: IBookRespose[] = (await models.book.findAll({where: {
+            userId
+        }})).map(mapDataBookResponse)
+        return books
+    },
+
     getBook: async (id: Number) => {
         let book: any = await models.book.findOne({
             where: {

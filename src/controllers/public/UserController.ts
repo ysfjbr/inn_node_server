@@ -1,5 +1,7 @@
 import { Op } from 'sequelize';
+import { IUser } from '../../models/User';
 import { createAccessToken } from "../../auth/auth";
+import MyBooksController from '../me/MyBooksController';
 
 
 const UserController = {
@@ -20,10 +22,7 @@ const UserController = {
             //     }
             // )
             
-            return {
-                token : createAccessToken(user),
-                user
-            }
+            return await mapDataUserResponse(user)
     },
     currentUser : async (context: any) => {
         const user = await context.models.user.findOne({where: {id: context.authUserId}})
@@ -31,10 +30,15 @@ const UserController = {
         if(!user)
             throw new Error("Invalid login! no user");
         
-        return {
-            token : createAccessToken(user),
-            user
-        }
+        return await mapDataUserResponse(user)
+    },
+}
+
+async function mapDataUserResponse(user: IUser){
+    return {
+        token : createAccessToken(user),
+        user,
+        myBooks: await MyBooksController.myBooks(user.id)
     }
 }
 
